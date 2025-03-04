@@ -1,0 +1,115 @@
+CREATE TABLE Employee (
+    Employee_ID  INT PRIMARY KEY AUTO_INCREMENT,
+    First_Name VARCHAR(100),
+    Last_Name VARCHAR(100) ,
+    Salary INT ,
+    Job_Title VARCHAR(100),
+    Last_Name VARCHAR(100) ,
+    hire_date date ,
+    Manager_ID VARCHAR(100)
+);
+
+
+CREATE TABLE Project (
+    Project_ID   INT PRIMARY KEY AUTO_INCREMENT,
+    Project_Name VARCHAR(100),
+    Start_Date date ,
+    End_Date date
+);
+
+CREATE TABLE Department (
+    Department_ID    INT PRIMARY KEY AUTO_INCREMENT,
+    Department_Name VARCHAR(100),
+    Manager_id int 
+);
+
+CREATE TABLE Location (
+   Location_ID    INT PRIMARY KEY AUTO_INCREMENT,
+    Country VARCHAR(100),
+    City VARCHAR(100)
+);
+
+
+
+CREATE TABLE employees_project (
+    Employee_ID INT,
+    Project_ID INT,
+    PRIMARY KEY (Employee_ID, Project_ID),
+    FOREIGN KEY (Employee_ID) REFERENCES Employee(Employee_ID),
+    FOREIGN KEY (Project_ID) REFERENCES Project(Project_ID)
+);
+
+
+
+
+CREATE TABLE Location_Department (
+    Department_ID INT,
+    Location_ID INT,
+    PRIMARY KEY (Department_ID, Location_ID),
+    FOREIGN KEY (Department_ID) REFERENCES Department(Department_ID),
+    FOREIGN KEY (Location_ID) REFERENCES Location(Location_ID)
+);
+
+
+
+
+
+
+
+
+INSERT INTO Employee (Employee_ID, First_Name, Last_Name, Job_Title, Salary, Hire_Date, Department_ID, Manager_ID)
+VALUES 
+(1, 'ahmad', 'ali', 'Software Engineer', 750, '2020-01-15', 101, 3),
+(2, 'abd', 'omar', 'Data Analyst', 650, '2019-03-22', 102, 3),
+(3, 'anas', 'ahmad', 'IT Manager', 900, '2018-06-10', 101, 3),
+(4, 'basel', 'baraa', 'HR Specialist', 600, '2021-09-05', 103, 3);
+
+
+INSERT INTO Department (Department_ID, Department_Name, Manager_ID)
+VALUES 
+(101, 'IT', 3),
+(102, 'Data Science', 3),
+(103, 'Human Resources', 4),
+(104, 'Finance', NULL);
+
+
+
+INSERT INTO Location (Location_ID, Country, City)
+VALUES 
+(1, 'JO', 'AMMAN'),
+(2, 'JO', 'AQABA'),
+(3, 'JO', 'KARAK'),
+(4, 'JO', 'MAAN');
+D
+
+INSERT INTO Project (Project_ID, Project_Name, Start_Date, End_Date)
+VALUES 
+(201, 'HR System Upgrade', '2023-01-01', '2023-06-30'),
+(202, 'Data Migration', '2023-03-15', '2023-09-15'),
+(203, 'Website Redesign', '2023-05-01', '2023-12-31'),
+(204, 'Cloud Integration', '2023-07-01', '2024-01-31');
+
+
+INSERT INTO employees_project (Employee_ID, Project_ID)
+VALUES 
+(1, 201),
+(2, 202),
+(3, 203),
+
+
+
+INSERT INTO Location_Department (Department_ID, Location_ID)
+VALUES 
+(101, 1),
+(102, 2),
+(103, 3),
+(104, 4);
+
+
+
+UPDATE employee
+SET First_Name = "KHALED"
+WHERE Employee_ID=1;
+
+DELETE FROM employee
+WHERE Employee_ID=4;
