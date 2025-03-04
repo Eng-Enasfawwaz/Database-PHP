@@ -1,0 +1,96 @@
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(25) NOT NULL,
+    last_name VARCHAR(25) NOT NULL,
+    job_title VARCHAR(100) NOT NULL,
+    manager VARCHAR(20),
+    salary DECIMAL(10,2) NOT NULL,
+    hire_date DATE NOT NULL
+);
+
+INSERT INTO employees (id, first_name, last_name,job_title,salary,hire_date) 
+VALUES (1, 'salsbeel',"ahmad", 'manager',1500,'1-2-2025');
+
+
+INSERT INTO employees (id, first_name, last_name,job_title,salary ,manager,hire_date) 
+VALUES (2, 'Raneem',"Ibrahim", 'managed on department-Marketing','omar',800,'10-2-2025');
+
+INSERT INTO employees (id, first_name, last_name,job_title ,manager,salary,hire_date) 
+VALUES (3, 'Omar',"nofal", 'managed on department-Finance','omar',800,'10-2-2025');
+
+INSERT INTO employees (id, first_name, last_name,job_title,manager,salary,hire_date) 
+VALUES (4, 'mohamad',"Al-omary", 'managed on department-Information_Technology','omar','800,10-2-2025');
+
+INSERT INTO employees (id, first_name, last_name,job_title,manager,salary,hire_date) 
+VALUES (5, 'sheren',"Ramdan", 'managed on department-Operations','omar',800,'10-2-2025');
+
+
+
+UPDATE employees 
+SET salary = 1000, manager='omar'
+WHERE id=2;
+
+DELETE FROM employees
+WHERE id=4;
+
+CREATE TABLE departments (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    manager VARCHAR(255) UNIQUE NOT NULL,
+    employees_id INT(11), 
+    FOREIGN KEY (employees_id) REFERENCES employees(id) ON DELETE SET NULL
+);
+
+INSERT INTO departments (id,manager,name)
+VALUES (2,'sheren','Marketing' );
+
+INSERT INTO departments (id,manager,name)
+VALUES (3,'raneem','Finance' );
+
+INSERT INTO departments (id,manager,name)
+VALUES (4,'mohamad','Information_Technology' );
+
+INSERT INTO departments (id,manager,name)
+VALUES (5,'omar','Operations' );
+
+
+CREATE TABLE location (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    city VARCHAR(20),
+    country VARCHAR(20) NOT NULL,
+    departments_id INT(11), 
+    FOREIGN KEY (departments_id) REFERENCES departments(id) ON DELETE CASCADE
+);
+
+INSERT INTO location (id,city,country)
+VALUES (1,"dubai","UAE");
+
+INSERT INTO location (id,city,country)
+VALUES (2,"Riyadh","KSA");
+
+INSERT INTO location (id,city,country)
+VALUES (3,"Amman","Jordan");
+
+INSERT INTO location (id,city,country)
+VALUES (4,"Amman","Jordan");
+
+CREATE TABLE project (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20),
+    start_date DATE,
+    end_date DATE,
+    employees_id INT(11), 
+    FOREIGN KEY (employees_id) REFERENCES employees(id) ON DELETE CASCADE
+);
+
+INSERT INTO project(name, start_date, end_date)
+VALUES ('SocialWave', '2025-02-10', '2025-02-20');
+
+INSERT INTO project(name, start_date, end_date)
+VALUES ('FinGuard', '2025-02-10', '2025-02-20');
+
+INSERT INTO project(name, start_date, end_date)
+VALUES ('AI_Assist', '2025-02-10', '2025-02-20');
+
+INSERT INTO project(name, start_date, end_date)
+VALUES ('WorkFlowX', '2025-02-10', '2025-02-20');
